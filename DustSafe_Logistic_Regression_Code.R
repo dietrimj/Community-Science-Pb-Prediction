@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyverse)
 library(caret)
 
-#' Read in Dec. 2020-July 2021 DustSafe Data
+#' Read in Dec. 2020-July 2021 DustSafe Data (we have it saved as a CSV file in the repository)
 Indy1 <- MME_NA_DustSafe_2021
 
 #' Add a Normal Curve to histogram (Thanks to Peter Dalgaard)
