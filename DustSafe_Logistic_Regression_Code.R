@@ -17,9 +17,8 @@ yfit <- yfit*diff(h$mids[1:2])*length(x)
 lines(xfit, yfit, col="blue", lwd=2) 
 
 #'Correlation between independent variables to test if violate assumptions of multicollinearity
-p <- cor.test(Indy1$RecentRenovation,Indy1$Housing, method=c("pearson"))
+p <- cor.test(Indy1$InteriorPeeling,Indy1$Housing, method=c("pearson"))
 (p)
-
 
 #'Filter for missing data of variables in initial model
 IndyPredict <- na.omit(Indy1[,c(4, 24:25, 30, 28)])
@@ -27,14 +26,6 @@ IndyPredict <- na.omit(Indy1[,c(4, 24:25, 30, 28)])
 #'Change to factor data
 #'"Low" (< 80 mg/kg Pb) and "High" (> 80 mg/kg Pb)
 IndyPredict$Pb_level_cat <- as.factor(IndyPredict$Pb_level_cat)
-
-IndyPredict$Housing <- as.factor(IndyPredict$Housing)
-
-IndyPredict$RecentRenovation <- as.factor(IndyPredict$RecentRenovation)
-
-IndyPredict$ExteriorPeeling <- as.factor(IndyPredict$ExteriorPeeling)
-
-IndyPredict$InteriorPeeling <-  as.factor(IndyPredict$InteriorPeeling)
 
 #'Split the data into training and test set with 80 mg/kg for high dust Pb threshold
 set.seed(123)
