@@ -24,7 +24,7 @@ p <- cor.test(Indy1$InteriorPeeling,Indy1$Housing, method=c("pearson"))
 IndyPredict <- na.omit(Indy1[,c(4, 24:25, 30, 28)])
 
 #'Change to factor data
-#'"Low" (< 80 mg/kg Pb) and "High" (> 80 mg/kg Pb)
+#'"Low" (< 80 mg/kg Pb) and "High" (> 80 mg/kg Pb) concentrations in indoor dust
 IndyPredict$Pb_level_cat <- as.factor(IndyPredict$Pb_level_cat)
 
 #'Split the data into training and test set with 80 mg/kg for high dust Pb threshold
