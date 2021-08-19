@@ -3,7 +3,7 @@ library(dplyr)
 library(tidyverse)
 library(caret)
 
-#' Read in Dec. 2020-July 2021 DustSafe Data (we have it saved as a CSV file in the repository)
+#' Read in Dec. 2020-July 2021 DustSafe Data
 Indy1 <- MME_NA_DustSafe_2021
 
 #' Add a Normal Curve to histogram (Thanks to Peter Dalgaard)
@@ -22,11 +22,19 @@ p <- cor.test(Indy1$RecentRenovation,Indy1$Housing, method=c("pearson"))
 
 
 #'Filter for missing data of variables in initial model
-IndyPredict <- na.omit(Indy1[,c(4, 22,24:25, 30, 21, 23, 26, 28)])
+IndyPredict <- na.omit(Indy1[,c(4, 24:25, 30, 28)])
 
 #'Change to factor data
 #'"Low" (< 80 mg/kg Pb) and "High" (> 80 mg/kg Pb)
 IndyPredict$Pb_level_cat <- as.factor(IndyPredict$Pb_level_cat)
+
+IndyPredict$Housing <- as.factor(IndyPredict$Housing)
+
+IndyPredict$RecentRenovation <- as.factor(IndyPredict$RecentRenovation)
+
+IndyPredict$ExteriorPeeling <- as.factor(IndyPredict$ExteriorPeeling)
+
+IndyPredict$InteriorPeeling <-  as.factor(IndyPredict$InteriorPeeling)
 
 #'Split the data into training and test set with 80 mg/kg for high dust Pb threshold
 set.seed(123)
@@ -36,7 +44,7 @@ train.data  <- IndyPredict[training.samples, ]
 test.data <- IndyPredict[-training.samples, ]
 
 #'Multiple logistic regression
-glm.fit <- glm(Pb_level_cat ~  RecentRenovation + Housing, data = train.data, family = binomial)
+glm.fit <- glm(Pb_level_cat ~  InteriorPeeling + Housing, data = train.data, family = binomial)
 summary(glm.fit)
 
 #'Model probability of success for binomial factor variable
@@ -59,10 +67,10 @@ plot(ROCRperf)
 #' Add colors
 plot(ROCRperf, colorize=TRUE)
 #' Add threshold labels
-plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.1), text.adj=c(-0.2,1.7))
+plot(ROCRperf, colorize=TRUE, print.cutoffs.at=seq(0,1,by=0.05), text.adj=c(-0.2,1.7))
 
 #'Classify if high or low dust Pb based on probability of predictive power from model
-glm.pred <- ifelse(glm.probs > 0.7, "Low", "High")
+glm.pred <- ifelse(glm.probs > 0.8, "Low", "High")
 #'Confusion matrix
 table(glm.pred, test.data$Pb_level_cat)
 #'Mean proportion of correct predictions
