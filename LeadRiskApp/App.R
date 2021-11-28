@@ -185,8 +185,8 @@ ui <- shinyUI(
                              p("If your household dust is deemed likely to be elevated in lead, that means there is a
                                46% chance based on our model that the lead dust concentration is >80 ppm."),
                              p("If your household dust is deemed NOT likely to be elevated in lead, that means there is a
-                               95% chance based on our model that the lead dust concentration is <80 ppm."),
-                             p("Overall, our model correctly classified dusts as > or < 80 ppm lead 76% of the time."),
+                               94% chance based on our model that the lead dust concentration is <80 ppm."),
+                             p("Overall, our model correctly classified dusts as > or < 80 ppm lead 75% of the time."),
                              p("To see our actual logisitic regression model and data outputs, ",
                                a("click here.", href="https://raw.githubusercontent.com/dietrimj/Community-Science-Pb-Prediction/main/DustSafe_Logistic_Regression_Code_and_Output.pdf", target = "_blank")
                                ),
